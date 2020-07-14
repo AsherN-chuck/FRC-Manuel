@@ -11,6 +11,6 @@ public class IntakePistons extends SubsystemBase {
         piston1.set(Value.kForward);
     }
     public void retracketed(){
-        piston1.set(Value.kForward);;
+        piston1.set(Value.kForward);
     }
 }
