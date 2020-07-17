@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj.SpeedController;
 public class IntakeWheels {
     private final SpeedController moter = new Spark(3);
 }
-
 public void Grab() {
    moter.set(0.5);
 }
