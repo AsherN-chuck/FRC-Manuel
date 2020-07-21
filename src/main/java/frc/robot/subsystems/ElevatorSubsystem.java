@@ -1,17 +1,24 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.Spark;
-import edu.wpi.first.wpilibj.SpeedController;
 
-public class ElevatorSubsystem {
-    private SpeedController ElevatorMoter = new Spark(4);
-    double speed = 0;
+import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.VictorSP;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+public class ElevatorSubsystem extends SubsystemBase{
+    private SpeedController ElevatorMoter = new VictorSP(2);
+    private double speed = 0;
     
-    public void Up(){
-        ElevatorMoter.set(0.5);
+    public void setSpeed(double speed){
+        this.speed = speed;
+        
     }
-    public void Down(){
-        ElevatorMoter.set(-0.5);
+
+    @Override
+    public void periodic(){
+        ElevatorMoter.set(speed);
+
+        speed = 0;
     }
      
 }
