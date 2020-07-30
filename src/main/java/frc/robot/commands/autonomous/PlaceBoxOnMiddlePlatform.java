@@ -17,8 +17,10 @@ public class PlaceBoxOnMiddlePlatform extends SequentialCommandGroup {
             IntakeArm arm) {
         addRequirements(drivetrain, intakeMotor, elevator, arm);
 
-        addCommands(new ParallelCommandGroup(new SequentialCommandGroup(
-                new DriveCommandMove(drivetrain, 0.5).withTimeout(1),
+        addCommands(
+            new ParallelCommandGroup(
+                new SequentialCommandGroup(
+                    new DriveCommandMove(drivetrain, 0.5).withTimeout(1),
                     new DriveCommandTurn(drivetrain, 0.7).withTimeout(1.5),
                     new DriveCommandMove(drivetrain, 0.5).withTimeout(
                         0.4)

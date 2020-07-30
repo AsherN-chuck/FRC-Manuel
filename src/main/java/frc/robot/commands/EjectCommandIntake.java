@@ -1,22 +1,18 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.IntakeWheels;
 
-public class EjectCommandIntake extends CommandBase {
+public class EjectCommandIntake extends SequentialCommandGroup {
     public EjectCommandIntake(IntakeWheels intakeMotor) {
         addRequirements(intakeMotor);
         addCommands(
             new RunCommand(
                 () -> {
-                intakeMotor.Release();
+                intakeMotor.release();
                 }
             ).withTimeout(0.2)
         );      
-    }
-
-    private void addCommands(ParallelRaceGroup withTimeout) {
     }
 }

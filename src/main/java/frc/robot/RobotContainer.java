@@ -33,7 +33,7 @@ public class RobotContainer {
   DrivetrainSubsystem drivetrain = new DrivetrainSubsystem();
   ElevatorSubsystem elevator = new ElevatorSubsystem();
   IntakeArm arm = new IntakeArm();
-  IntakeWheels intakeMotor = new IntakeWheels();
+  IntakeWheels wheels = new IntakeWheels();
   
   public RobotContainer() {
     // Configure the button bindings
@@ -41,7 +41,7 @@ public class RobotContainer {
 
     drivetrain.setDefaultCommand(new DriveCommandJoystick(drivetrain, () -> joystick.getX(), () -> joystick.getY()));
     elevator.setDefaultCommand(new JoystickCommandElevator(elevator, () -> joystick.getRawAxis(5)));
-    intakeMotor.setDefaultCommand(new RunCommand(intakeMotor::stop, intakeMotor));
+    wheels.setDefaultCommand(new RunCommand(wheels::stop, wheels));
     arm.setDefaultCommand(new JoystickCommandArm(arm, () -> joystick.getRawAxis(4)));
   }
 
@@ -56,8 +56,8 @@ public class RobotContainer {
     JoystickButton ejectWheelButton = new JoystickButton(joystick, 1); 
     
 
-    intakeWheelButton.whileHeld(intakeMotor::Grab, intakeMotor);
-    ejectWheelButton.whileHeld(intakeMotor::Release, intakeMotor);
+    intakeWheelButton.whileHeld(wheels::grab, wheels);
+    ejectWheelButton.whileHeld(wheels::release, wheels);
   }
 
 public Command getAutonomousCommand() {
