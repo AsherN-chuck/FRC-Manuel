@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.DriveCommandJoystick;
+import frc.robot.commands.ElevatorCommandPosition;
 import frc.robot.commands.JoystickCommandArm;
 import frc.robot.commands.JoystickCommandElevator;
 import frc.robot.subsystems.DrivetrainSubsystem;
@@ -54,8 +55,11 @@ public class RobotContainer {
   private void configureButtonBindings() {
     JoystickButton intakeWheelButton = new JoystickButton(joystick, 0);
     JoystickButton ejectWheelButton = new JoystickButton(joystick, 1); 
-    
+    JoystickButton elevatorToTopButton = new JoystickButton(joystick, 2);
+    JoystickButton elevatorToBottomButton = new JoystickButton(joystick, 3);
 
+    elevatorToTopButton.whenPressed(new ElevatorCommandPosition(elevator, 1.1));
+    elevatorToBottomButton.whenPressed(new ElevatorCommandPosition(elevator, 0));
     intakeWheelButton.whileHeld(wheels::grab, wheels);
     ejectWheelButton.whileHeld(wheels::release, wheels);
   }
