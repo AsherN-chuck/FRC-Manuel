@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.commands.ArmCommandPosition;
 import frc.robot.commands.DriveCommandJoystick;
 import frc.robot.commands.ElevatorCommandPosition;
 import frc.robot.commands.JoystickCommandArm;
@@ -57,9 +58,13 @@ public class RobotContainer {
     JoystickButton ejectWheelButton = new JoystickButton(joystick, 1); 
     JoystickButton elevatorToTopButton = new JoystickButton(joystick, 2);
     JoystickButton elevatorToBottomButton = new JoystickButton(joystick, 3);
+    JoystickButton armUpwardButton = new JoystickButton(joystick, 4);
+    JoystickButton armDownwardButton = new JoystickButton(joystick, 5);
 
     elevatorToTopButton.whenPressed(new ElevatorCommandPosition(elevator, 1.1));
     elevatorToBottomButton.whenPressed(new ElevatorCommandPosition(elevator, 0));
+    armUpwardButton.whenPressed(new ArmCommandPosition(arm, 1.1));
+    armDownwardButton.whenPressed(new ArmCommandPosition(arm, 0));
     intakeWheelButton.whileHeld(wheels::grab, wheels);
     ejectWheelButton.whileHeld(wheels::release, wheels);
   }
