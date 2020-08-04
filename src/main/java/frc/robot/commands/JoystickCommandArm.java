@@ -18,6 +18,6 @@ public class JoystickCommandArm extends CommandBase{
 
     @Override
     public void execute(){
-        arm.setsSpeed(speed.getAsDouble());
+        arm.setSpeed(speed.getAsDouble());
     }
 }
