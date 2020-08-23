@@ -2,7 +2,6 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.controller.PIDController;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DrivetrainSubsystem;
@@ -12,9 +11,7 @@ public class DriveTrainCommandRotate extends CommandBase {
     private double targetPosition;
     private PIDController pidController = new PIDController(0.0001, 0, 0);
     private TrapezoidProfile profile;
-    private double startTime;
-    private double power; 
-    private Gyro gyroscope;
+    private double startTime; 
 
     public DriveTrainCommandRotate(DrivetrainSubsystem drivetrain, double targetPosition) {
         addRequirements(drivetrain);
@@ -27,7 +24,7 @@ public class DriveTrainCommandRotate extends CommandBase {
         profile = new TrapezoidProfile(
             new TrapezoidProfile.Constraints(5, 10),
             new TrapezoidProfile.State(targetPosition, 0),
-            new TrapezoidProfile.State(gyroscope.getAngle(), drivetrain.getVelocity())
+            new TrapezoidProfile.State(drivetrain.getAngle(), drivetrain.getVelocity())
         );
         startTime = Timer.getFPGATimestamp();
     }
@@ -35,17 +32,16 @@ public class DriveTrainCommandRotate extends CommandBase {
     @Override
     public boolean isFinished() {
         double currentTime = Timer.getFPGATimestamp() - startTime;
-        return Math.abs(gyroscope.getAngle() - targetPosition) < 0.5 && currentTime > profile.totalTime();
+        return Math.abs(drivetrain.getAngle() - targetPosition) < 0.5 && currentTime > profile.totalTime();
     }
 
     @Override
     public void execute() {
-        power = pidController.calculate(gyroscope.getAngle(), targetPosition);
         TrapezoidProfile.State scheduledState = profile.calculate(Timer.getFPGATimestamp() - startTime);
 
-        power =
+        double power =
             0.5 * scheduledState.velocity +
-            pidController.calculate(gyroscope.getAngle(), scheduledState.position);
+            pidController.calculate(drivetrain.getAngle(), scheduledState.position);
 
         drivetrain.setSpeed(power);
     }
