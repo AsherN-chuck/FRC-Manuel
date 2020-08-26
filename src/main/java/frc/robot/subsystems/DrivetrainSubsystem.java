@@ -15,7 +15,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     private double speed;
     private DifferentialDrive DrivetrainSubsystem = new DifferentialDrive(leftMoter, rightMoter);
     private CANCoder encoder = new CANCoder(2);
-    AHRS gyroscope; 
+    AHRS gyroscope = new AHRS(SPI.Port.kMXP); 
 
     public void arcade(double forwardSpeed, double rotationSpeed){
         DrivetrainSubsystem.arcadeDrive(forwardSpeed, rotationSpeed);
@@ -30,7 +30,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     }
 
     public double getAngle() {
-        return gyroscope = new AHRS(SPI.Port.kMXP);  
+        return gyroscope.getAngle();  
     }
 
 
